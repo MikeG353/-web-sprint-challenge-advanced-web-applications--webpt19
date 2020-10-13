@@ -20,5 +20,5 @@ test("Fetches data and renders the bubbles", async () => {
   await wait()
   rerender(<BubblePage/>)
   expect(getByText(/aliceblue/i)).toBeInTheDocument()
-  // debug()
+  debug()
 });

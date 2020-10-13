@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import  { axiosWithAuth, baseURL } from '../api/axiosWithAuth'
+// import { fetchColors } from '../api/fetchColors'
 import { useParams } from "react-router-dom";
 
 const initialColor = {
@@ -7,12 +8,12 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors, fetchColors, testid }) => {
+const ColorList = ({ colors, updateColors, fetchColors }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
-  // const {id} = useParams()
-  const id = 1
+  const {id} = useParams()
+  // const id = 1
 
   const editColor = color => {
     setEditing(true);
@@ -57,8 +58,10 @@ const ColorList = ({ colors, updateColors, fetchColors, testid }) => {
     // make a delete request to delete this color
     axiosWithAuth()
       .delete(`${baseURL}/colors/${color.id}`)
-      .then(
-        fetchColors()
+      .then(res => {
+        const newColorsList = fetchColors()
+        console.log(newColorsList)
+      }
       )
       .catch(err => {
         console.error(`unable to delete color ${id}. error: `, err)
